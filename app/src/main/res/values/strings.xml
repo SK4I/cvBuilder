@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">cvBuilder</string>
+
+    <string name="linkedin">LinkedIn</string>
+    <string name="github">GitHub</string>
+    <string name="mail">Mail</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="web_site">WebSite</string>
+</resources>
