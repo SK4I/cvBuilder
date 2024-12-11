@@ -25,6 +25,10 @@ android {
         schemaDirectory("$projectDir/scshemas/")
     }
 
+    ksp {
+        arg("KOIN_CONFIG_CHECK", "true")
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -47,6 +51,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.gson)
     implementation(libs.twyper)
     implementation(libs.androidx.animation)
     implementation(libs.insert.koin.koin.androidx.compose)

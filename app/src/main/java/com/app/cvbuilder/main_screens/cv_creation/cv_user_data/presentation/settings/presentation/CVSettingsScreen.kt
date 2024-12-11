@@ -3,11 +3,12 @@ package com.app.cvbuilder.main_screens.cv_creation.cv_user_data.presentation.set
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -31,6 +32,8 @@ import androidx.compose.ui.unit.sp
 import com.app.cvbuilder.core.ui.theme.PrimaryColorLight
 import com.app.cvbuilder.main_screens.cv_creation.cv_user_data.presentation.CVCreationScaffold
 import com.app.cvbuilder.main_screens.cv_creation.cv_user_data.presentation.KoinPreview
+import com.app.cvbuilder.main_screens.cv_creation.cv_user_data.presentation.settings.domain.CVSettingType
+import com.app.cvbuilder.main_screens.cv_creation.cv_user_data.presentation.settings.domain.CVSettingItem
 import com.app.cvbuilder.main_screens.cv_creation.cv_user_data.presentation.toUserDataFlowSettings
 
 @Preview
@@ -53,54 +56,60 @@ fun CVSettingsScreen(onNextButtonClicked: () -> Unit, onPreviousButtonClick: () 
 
 @Composable
 private fun CVSettings() {
-    val options = listOf("Option 1", "Option 2", "Option 3")
-
-    Column(modifier = Modifier.toUserDataFlowSettings()) {
-        DropdownSetting(options,
+    val settingsList: List<CVSettingItem> = listOf(
+        CVSettingItem(
             label = "Appearance of skills",
-            onItemClicked = { chosenAppearance ->
-
-            }
-        )
-        DropdownSetting(options,
+            type = CVSettingType.Dropdown(value = "", options = listOf("1", "2", "3"))
+        ),
+        CVSettingItem(
             label = "CV text size",
-            onItemClicked = { chosenTextSize ->
-
-            }
-        )
-        DropdownSetting(options,
-            label = "Order",
-            onItemClicked = { chosenOrder ->
-
-            }
-        )
-        DropdownSetting(options,
+            type = CVSettingType.Dropdown(value = "", options = listOf("1", "2", "3"))
+        ),
+        CVSettingItem(
+            label = "Chronological order",
+            type = CVSettingType.Dropdown(value = "", options = listOf("1", "2", "3"))
+        ),
+        CVSettingItem(
             label = "Date format",
-            onItemClicked = { chosenDateFormat ->
-
-            }
-        )
-        CVSettingsSwitch(
+            type = CVSettingType.Dropdown(value = "", options = listOf("1", "2", "3"))
+        ),
+        CVSettingItem(
             label = "Show personal photo",
-            initialValue = false,
-            onValueChanged = { chosenValue ->
-
-            }
+            type = CVSettingType.Switch(value = false)
+        ),
+        CVSettingItem(
+            label = "Show date of birth",
+            type = CVSettingType.Switch(value = false)
+        ),
+        CVSettingItem(
+            label = "Show duration calculator",
+            type = CVSettingType.Switch(value = false)
         )
-        CVSettingsSwitch(
-            label = "Show birth date",
-            initialValue = false,
-            onValueChanged = { chosenValue ->
+    )
+    Settings(settingsList)
+}
 
-            }
-        )
-        CVSettingsSwitch(
-            label = "Show duration calculation",
-            initialValue = false,
-            onValueChanged = { chosenValue ->
+@Composable
+private fun Settings(settingsList: List<CVSettingItem>) {
 
+    LazyColumn(modifier = Modifier.toUserDataFlowSettings()) {
+        items(settingsList) { item ->
+            when (item.type) {
+                is CVSettingType.Switch -> CVSettingsSwitch(
+                    label = item.label,
+                    initialValue = false,
+                    onValueChanged = {
+
+                    })
+
+                is CVSettingType.Dropdown -> DropdownSetting(
+                    options = item.type.options,
+                    label = item.label,
+                    onItemClicked = {
+
+                    })
             }
-        )
+        }
     }
 }
 

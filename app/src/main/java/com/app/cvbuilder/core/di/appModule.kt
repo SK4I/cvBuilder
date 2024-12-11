@@ -9,6 +9,9 @@ import com.app.cvbuilder.main_screens.cv_creation.cv_user_data.presentation.init
 import com.app.cvbuilder.main_screens.cv_creation.cv_user_data.presentation.language.data.CVLanguageRepository
 import com.app.cvbuilder.main_screens.cv_creation.cv_user_data.presentation.language.data.CVLanguageRepositoryImpl
 import com.app.cvbuilder.main_screens.cv_creation.cv_user_data.presentation.language.presentation.CVLanguageViewModel
+import com.app.cvbuilder.main_screens.cv_creation.cv_user_data.presentation.settings.domain.CVSettingTypeConverter
+import com.google.gson.Gson
+import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -21,4 +24,7 @@ val appModule = module {
     viewModelOf(::UserInitialsViewModel)
     viewModelOf(::UserCVNameViewModel)
     viewModelOf(::CVLanguageViewModel)
+
+    factoryOf(::CVSettingTypeConverter)
+    factoryOf(::Gson)
 }
